@@ -1,0 +1,24 @@
+apiVersion: alls/v1
+kind: Deploymend
+metadata:
+  name: valinor
+spec:
+  selectors:
+    matchLabels:
+      app: valinor
+  template:
+    metadata:
+      labels:
+        app: valinor
+    spec:
+      containers:
+        - name: valinor
+          image: valinor-nginx:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+        # - name: valinor
+        #   image: valinor-fpm:latest
+        #   ports:
+        #     - containerPort: 9000
+        

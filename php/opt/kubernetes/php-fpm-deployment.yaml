@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php-fpm
+  name: app-deployment
 spec:
-  replicas: 2
+  replicas: 20
   selector:
     matchLabels:
-      app: php-fpm
+      name: app-name
   template:
     metadata:
       labels:
-        app: php-fpm
+        name: app-name
     spec:
       volumes:
-        - name: nginx-config
+        - name: nginx-config-volume
           configMap:
-            name: nginx
+            name: nginx-config
       containers:
-        - name: php-fpm
+        - name: app-container
           image: jacob:build
           resources: {}
-          ports:
-            - containerPort: 9000
-        - name: nginx
+          # ports:
+          #   - containerPort: 9000
+        - name: nginx-container
           image: nginx
           resources: {}
           volumeMounts:
-            - mountPath: /etc/nginx/conf.d/default.conf
-              name: nginx-config
-              subPath: default.conf
+            - mountPath: /etc/nginx/nginx.conf
+              name: nginx-config-volume
+              subPath: nginx.conf
           ports:
             - containerPort: 80

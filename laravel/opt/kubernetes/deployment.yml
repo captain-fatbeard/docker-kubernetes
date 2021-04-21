@@ -1,5 +1,5 @@
-apiVersion: alls/v1
-kind: Deploymend
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: valinor
 spec:

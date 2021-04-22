@@ -13,7 +13,7 @@ data:
           root           /var/www/html;
 
           location / {
-              try_files $uri $uri/ /public/index.php;
+              try_files $uri $uri/ /public/index.php?$query_string;
           }
 
           location ~ \.php$ {

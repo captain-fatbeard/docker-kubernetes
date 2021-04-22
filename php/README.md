@@ -19,3 +19,9 @@ run locally
 
 
     kubectl delete -f opt/kubernetes
+
+
+
+
+## google kubernetes engine
+    gcloud config set project ambi-valinor-ds

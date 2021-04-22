@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-deployment
 spec:
-  replicas: 20
+  replicas: 2
   selector:
     matchLabels:
       name: app-name
@@ -18,7 +18,7 @@ spec:
             name: nginx-config
       containers:
         - name: app-container
-          image: jacob:build
+          image: php-app:build
           resources: {}
           # ports:
           #   - containerPort: 9000

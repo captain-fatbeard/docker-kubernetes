@@ -25,8 +25,8 @@ Set project in gcloud
 
 Build and push to registry
 
-	docker image build --target production -t gcr.io/ambi-valinor-ds/php-app:v1 .
-	docker push gcr.io/ambi-valinor-ds/php-app:v1
+	docker image build --target production -t gcr.io/ambi-valinor-ds/php-app:latest .
+	docker push gcr.io/ambi-valinor-ds/php-app:latest
 
 Connect apply manyfest to cluster
 

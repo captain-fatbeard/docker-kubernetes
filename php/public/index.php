@@ -1,4 +1,10 @@
 <?php
+
+if (isset($_GET['info'])) {
+    phpinfo();
+    die();
+}
+
 session_start();
 
 echo 'Hello php FPM served by nginx';

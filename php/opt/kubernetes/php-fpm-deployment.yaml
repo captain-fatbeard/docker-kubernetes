@@ -19,6 +19,7 @@ spec:
       containers:
         - name: app-container
           image: gcr.io/ambi-valinor-ds/php-app:latest
+          imagePullPolicy: Always
           resources: {}
           # ports:
           #   - containerPort: 9000

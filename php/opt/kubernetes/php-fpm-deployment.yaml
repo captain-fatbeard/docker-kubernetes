@@ -18,7 +18,7 @@ spec:
             name: nginx-config
       containers:
         - name: app-container
-          image: php-app:build
+          image: gcr.io/ambi-valinor-ds/php-app:latest
           resources: {}
           # ports:
           #   - containerPort: 9000

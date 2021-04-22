@@ -8,20 +8,28 @@ build production
     make production
 
 
-apply all kubenetes manifests
     kubectl apply -f opt/kubernetes
-
-
-
-run locally
-    kubectl get pods
-    kubectl port-forward POD_NAME 8080:80
-
-
     kubectl delete -f opt/kubernetes
 
 
 
 
 ## google kubernetes engine
+
+Set project in gcloud
+
     gcloud config set project ambi-valinor-ds
+
+
+#### Deployment
+
+Build and push to registry
+
+	docker image build --target production -t gcr.io/ambi-valinor-ds/php-app:v1 .
+	docker push gcr.io/ambi-valinor-ds/php-app:v1
+
+Connect apply manyfest to cluster
+
+    gcloud container clusters get-credentials cluster-php-test --region europe-west1
+    kubectl apply -f opt/kubernetes
+

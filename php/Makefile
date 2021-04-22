@@ -5,7 +5,5 @@ production:
 	docker image build --target production -t php-app:v1 .
 
 prod:
-	export PROJECT_ID=ambi-valinor-ds
-	docker image build --target production -t gcr.io/${PROJECT_ID}/php-app:v1 .
-	docker push gcr.io/${PROJECT_ID}/php-app:v1
-	kubectl create deployment cluster-php-test --image=gcr.io/${PROJECT_ID}/php-app:v1
+	docker image build --target production -t gcr.io/ambi-valinor-ds/php-app:v1 .
+	docker push gcr.io/ambi-valinor-ds/php-app:v1

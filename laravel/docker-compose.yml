@@ -14,9 +14,9 @@ services:
         condition: service_started
 
   php:
-    build: 
+    build:
+      target: base
       context: .
-      dockerfile: dev-services/php.dockerfile
     depends_on:
       db:
         condition: service_healthy

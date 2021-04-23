@@ -1,10 +1,10 @@
 FROM php:7-fpm-alpine AS base
 
 # set container workdir
-WORKDIR /app
+WORKDIR /var/www/html
 
 # copy src file to workdir
-COPY /src .
+COPY src .
 
 RUN docker-php-ext-install pdo pdo_mysql
 
@@ -24,6 +24,6 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 ###
 
-# FROM base AS production
+FROM base AS production
 
-# COPY --from=build /app /var/www/html
+COPY --from=base /var/www/html /var/www/html

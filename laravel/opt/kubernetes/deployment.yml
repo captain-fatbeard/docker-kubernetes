@@ -1,24 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: valinor
+  name: app-deployment
 spec:
-  selectors:
+  replicas: 6
+  selector:
     matchLabels:
-      app: valinor
+      name: laravel-app
   template:
     metadata:
       labels:
-        app: valinor
+        name: laravel-app
     spec:
+      volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config
       containers:
-        - name: valinor
-          image: valinor-nginx:latest
-          imagePullPolicy: IfNotPresent
+        - name: app-container
+          image: laravel-app:latest
+          # image: gcr.io/ambi-valinor-ds/laravel-app:latest
+          imagePullPolicy: Always
+          resources: {}
+          # ports:
+          #   - containerPort: 9000
+        - name: nginx-container
+          image: nginx
+          resources: {}
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: nginx-config-volume
+              subPath: nginx.conf
           ports:
             - containerPort: 80
-        # - name: valinor
-        #   image: valinor-fpm:latest
-        #   ports:
-        #     - containerPort: 9000
-        

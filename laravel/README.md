@@ -41,12 +41,12 @@ docker-compose run --rm npm run watch
 ___
 ___
 
-## Find containerId
+##### Find containerId
 ```
 docker ps
 ```
 
-## Bash into container
+##### Bash into container
 ```
 docker exec -it <containerId> sh
 ```

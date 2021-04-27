@@ -51,3 +51,15 @@ docker ps
 docker exec -it <containerId> sh
 ```
 
+
+___
+___
+## Deploy to production
+##### Kubernetes deploy steps
+```
+kubectl apply -f opt/kubernetes/mariadb.yaml
+kubectl apply -f opt/kubernetes/configmaps.yaml
+kubectl apply -f opt/kubernetes/secret.yaml
+kubectl apply -f opt/kubernetes/deployment.yaml
+kubectl apply -f opt/kubernetes/loadbalancer.yaml
+```

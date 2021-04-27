@@ -9,5 +9,4 @@ RUN npm run production
 
 FROM nginx:1.19-alpine AS nginx
 
-COPY /opt/docker/nginx/vhost.conf /etc/nginx/conf.d/default.conf
 COPY --from=assets-build /var/www/html/public /var/www/html/

@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: laravel-example-project
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: laravel-example-project
+  template:
+    metadata:
+      labels:
+        name: laravel-example-project
+    spec:
+      volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config
+        - name: logs
+          emptyDir: {}
+        - name: cache
+          emptyDir: {}
+        - name: testing
+          emptyDir: {}
+        - name: sessions
+          emptyDir: {}
+        - name: views
+          emptyDir: {}
+      securityContext:
+        fsGroup: 82
+      initContainers:
+        - name: database-migrations
+          image: laravel-example-project-fpm:v1
+          imagePullPolicy: IfNotPresent 
+          envFrom:
+            - configMapRef:
+                name: laravel
+            - secretRef:
+                name: laravel
+          command:
+            - "php"
+          args:
+            - "artisan"
+            - "migrate"
+            - "--force"
+      containers:
+        - name: nginx
+          image: laravel-example-project-nginx:v1
+          imagePullPolicy: IfNotPresent 
+          resources: {}
+          # resources:
+          #   limits:
+          #     cpu: 500m
+          #     memory: 50M
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: nginx-config-volume
+              subPath: nginx.conf
+
+        - name: fpm
+          image: laravel-example-project-fpm:v1
+          imagePullPolicy: IfNotPresent 
+          envFrom:
+            - configMapRef:
+                name: laravel
+            - secretRef:
+                name: laravel
+          # securityContext:
+          #   runAsUser: 82
+          #   readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: logs
+              mountPath: /var/www/html/storage/logs
+            - name: cache
+              mountPath: /var/www/html/storage/framework/cache
+            - name: sessions
+              mountPath: /var/www/html/storage/framework/sessions
+            - name: views
+              mountPath: /var/www/html/storage/framework/views
+            - name: testing
+              mountPath: /var/www/html/storage/framework/testing
+          resources: {}
+          # ports:
+          #   - containerPort: 9000

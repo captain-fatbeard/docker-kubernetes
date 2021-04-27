@@ -37,6 +37,8 @@ COPY /routes routes
 
 COPY . /var/www/html
 
+RUN chown -R www-data:www-data /var/www/html/storage
+
 RUN composer dump-autoload -o
 
 FROM build-fpm AS fpm

@@ -1,7 +1,61 @@
 # laravel-docker-kubernetes
 Laravel docker kubernetes template
 
+## Installation on localhost
+
+#### Start & build server containers
+```
+docker-compose up -d server
+```
+
+#### Install composer dependencies in container
+```
+docker-compose exec -T fpm composer install
+```
+
+#### Install node dependencies in container
+```
+docker-compose run --rm npm install
+
+```
+
+#### migrate & seed database
+```
+docker-compose exec -T fpm php artisan migrate:fresh --seed
+```
+
+___
+
+
+## Run project on localhost
+
+#### Start server containers
+```
+docker-compose up -d server
+```
+
+#### Dev & watcher on localhost
+```
+docker-compose run --rm npm run watch
+```
+
+
+
+___
+
+
+
+
+
+
+
+
+
+
+
+
 ## start dev services
+
 ```
 docker-compose up -d server
 ```
@@ -16,10 +70,6 @@ docker-compose up -d --build server
 docker-compose run --rm composer 
 ```
 
-## install laravel project using composer container: 
-```
-docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
-```
 
 ## run php artisan
 ```
@@ -39,4 +89,10 @@ docker ps
 ## Bash into container
 ```
 docker exec -it <containerId> sh
+```
+
+
+### force new dockerbuild
+```
+dc up -d --build server
 ```
